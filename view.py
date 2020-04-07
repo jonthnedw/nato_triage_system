@@ -8,12 +8,14 @@ continuously requests updated info from the model (through the controller) in an
 user.
 """
 
-def main():
-    class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
-        def __init__(self, *args, obj=None, **kwargs):
-            super(MainWindow, self).__init__(*args, **kwargs)
-            self.setupUi(self)
 
+class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
+    def __init__(self, *args, obj=None, **kwargs):
+        super(MainWindow, self).__init__(*args, **kwargs)
+        self.setupUi(self)
+
+
+def display():
     app = QtWidgets.QApplication([])
 
     window = MainWindow()
@@ -23,5 +25,3 @@ def main():
 
     # TODO multithread the GUI and create the two placeholder worker threads as described above
 
-if __name__ == "__main__":
-    main()
