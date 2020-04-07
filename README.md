@@ -1,5 +1,8 @@
 Digital Triage Assistant.
 
+===Dependencies===
+PyQt5
+
 ===Discussion===
 I think we should use a centralized info model where we store the parameters in some sort of db (maybe a data structure or our own custom class) and then systems can make requests to the model for the info that they need. A more detailed example of how this would work:
 
