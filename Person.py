@@ -1,5 +1,10 @@
 class Person:
-    """Person class that will hold all user-entered parameters that triage systems can request."""
+    """
+    Person class that will hold all user-entered parameters that triage systems can request.
+    TODO Rewrite description in terms of MVC
+    TODO Design additional methods
+    TODO Implement additional methods
+    """
     def __init__(self):
         self.params = {}
         filepath = "params.txt"
