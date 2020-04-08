@@ -1,4 +1,8 @@
-from PyQt5 import QtWidgets, uic
+import controller
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+
 from MainWindow import Ui_MainWindow
 
 """
@@ -9,19 +13,44 @@ user.
 """
 
 
-class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
-    def __init__(self, *args, obj=None, **kwargs):
+class Worker(QRunnable):
+    """
+    Worker thread with abstracted run function that will execute any given Python function with args.
+    """
+
+    def __init__(self, fn, *args, **kwargs):
+        super(Worker, self).__init__()
+        self.fn = fn
+        self.args = args
+        self.kwargs = kwargs
+
+    @pyqtSlot()
+    def run(self):
+        self.fn(*self.args, **self.kwargs)
+
+
+class MainWindow(QMainWindow, Ui_MainWindow):
+    def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
+        self.threadpool = QThreadPool()
+
+    """ 
+    Listener for changed parameters, updates vitals by calling controller's update_parameter function in a new
+    worker thread. Queueing is handled by QThreadPool.
+    """
+    def parameterChanged(self, value):
+        worker = Worker(controller.update_parameter, self.sender().objectName(), value)
+        self.threadpool.start(worker)
 
 
 def display():
-    app = QtWidgets.QApplication([])
+    app = QApplication([])
 
     window = MainWindow()
     window.show()
     app.exec()
-    print(window.heart_rate_value.text())
 
-    # TODO multithread the GUI and create the two placeholder worker threads as described above
 
+if __name__ == "__main__":
+    display()
