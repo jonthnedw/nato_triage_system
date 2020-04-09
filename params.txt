@@ -1,3 +1,0 @@
-# One parameter per line, in lower_case_format
-heart_rate
-blood_pressure
