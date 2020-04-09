@@ -5,15 +5,8 @@ class Person:
     TODO Design additional methods
     TODO Implement additional methods
     """
-    def __init__(self):
-        self.count = 0
-        self.params = {}
-        filepath = "params.txt"
-        with open(filepath) as fp:
-            for line in fp:
-                if "#" in line:
-                    continue
-                self.params[line.strip()] = None
+    def __init__(self, params):
+        self.params = params
 
     # Returns data to calling system
     def get_data(self, key):
@@ -23,7 +16,6 @@ class Person:
     def put_data(self, key, value):
         try:
             if key in self.params:
-                self.count = 10
                 self.params[key] = value
             else:
                 raise AttributeError

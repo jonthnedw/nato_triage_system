@@ -1,4 +1,5 @@
 import view
+import systemhandler
 from person import Person
 
 """
@@ -8,18 +9,37 @@ TODO Design controller methods
 TODO Implement controller methods
 """
 
-person = Person()
+
+def get_params():
+    params = {}
+    filepath = "params.txt"
+    with open(filepath) as fp:
+        for line in fp:
+            if "#" in line:
+                continue
+            params[line.strip()] = None  # Read each param in params.txt and initialize to None
+    return params
 
 
-def update_parameter(parameter, value):
+# TODO: modify this info chain to accept multiple persons
+def update_parameter(person, parameter, value):
     person.put_data(parameter, value)
-    print(person.params)
-    # TODO: systems need to be informed that vitals have changed
+    publisher.notify(person, parameter)
 
 
+def gui_socket(parameter, value):
+    update_parameter(person, parameter, value)
+
+
+params = get_params()
+person = Person(params)  # Eventually delete this when we support creation of multiple persons
+publisher = systemhandler.Publisher(params)
 def main():
+    # publisher.register("heart_rate", "Alice")
+    # publisher.register("heart_rate", "Bob")
+    # publisher.register("hr", "Charlie")
+    publisher.setup()
     view.display()
-
 
 if __name__ == "__main__":
     main()

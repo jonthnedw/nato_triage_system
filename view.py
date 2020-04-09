@@ -40,7 +40,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     worker thread. Queueing is handled by QThreadPool.
     """
     def parameterChanged(self, value):
-        worker = Worker(controller.update_parameter, self.sender().objectName(), value)
+        worker = Worker(controller.gui_socket, self.sender().objectName(), value)
         self.threadpool.start(worker)
 
 
