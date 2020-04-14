@@ -27,6 +27,7 @@ def update_parameter(person, parameter, value):
     publisher.notify(person, parameter)
 
 
+# really bad interface for the view while we only support one person
 def gui_socket(parameter, value):
     update_parameter(person, parameter, value)
 
@@ -43,3 +44,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    # TODO: fix the bug where the threading breaks the publisher :(
