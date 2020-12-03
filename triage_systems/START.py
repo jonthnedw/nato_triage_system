@@ -43,7 +43,6 @@ def black_tag(req_params):
 
 
 def red_tag(req_params):
-    # I omitted the option of being red tagged for now because we may need a param to check if breathing twice
     b = req_params["breathing"]
     c = req_params["respiratory_rate"]
     d = req_params["perfusion"]
